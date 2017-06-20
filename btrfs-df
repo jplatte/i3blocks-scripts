@@ -1,0 +1,8 @@
+#!/bin/bash
+df=$(
+    btrfs filesystem usage -H -T "$BLOCK_INSTANCE" \
+        | grep '^\s\+Free' \
+        | sed 's/[^:]\+:\s\+\([0-9.]\+\w\+\).*/\1/'
+)
+
+printf '%s' "$df"

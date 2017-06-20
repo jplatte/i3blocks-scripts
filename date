@@ -1,0 +1,4 @@
+#!/bin/bash
+[[ "$BLOCK_BUTTON" == 1 ]] && gnome-calendar
+
+date '+%d.%m.%Y'

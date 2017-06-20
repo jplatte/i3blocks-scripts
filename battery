@@ -1,0 +1,40 @@
+#!/bin/bash
+cd "/sys/class/power_supply/$BLOCK_INSTANCE/"
+
+status=$(cat status)
+charge_d=$((100 * $(cat charge_now) / $(cat charge_full_design)))
+charge_f=$((100 * $(cat charge_now) / $(cat charge_full)))
+
+if [[ "$charge_f" -lt 20 ]]; then
+    printf '\uf244'
+elif [[ "$charge_f" -lt 40 ]]; then
+    printf '\uf243'
+elif [[ "$charge_f" -lt 60 ]]; then
+    printf '\uf242'
+elif [[ "$charge_f" -lt 80 ]]; then
+    printf '\uf241'
+else
+    printf '\uf240'
+fi
+
+printf '  '
+
+if [[ "$status" == 'Charging' ]]; then
+    printf '\uf106'
+elif [[ "$status" == 'Discharging' ]]; then
+    printf '\uf107'
+elif [[ "$status" == 'Full' ]]; then
+    printf '\uf0e7'
+else
+    printf '[%s]' "$status"
+fi
+
+printf '  %s%%\n' "$charge_d"
+
+if [[ "$status" == 'Discharging' ]]; then
+    if [[ "$charge_d" -lt 20 ]]; then
+        printf '\nEEBF13'
+    elif [[ "$charge_d" -lt 10 ]]; then
+        printf '\n#E41C28'
+    fi
+fi
