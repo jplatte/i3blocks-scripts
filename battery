@@ -34,9 +34,9 @@ fi
 printf '  %s\u2009W, %s%%\n' "$rate" "$charge_d"
 
 if [[ "$status" == 'Discharging' ]]; then
-    if [[ "$charge_d" -lt 20 ]]; then
-        printf '\n#EEBF13'
-    elif [[ "$charge_d" -lt 10 ]]; then
+    if [[ "$charge_d" -lt 10 ]]; then
         printf '\n#E41C28'
+    elif [[ "$charge_d" -lt 20 ]]; then
+        printf '\n#EEBF13'
     fi
 fi
