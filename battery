@@ -4,6 +4,8 @@ cd "/sys/class/power_supply/$BLOCK_INSTANCE/"
 status=$(cat status)
 charge_d=$((100 * $(cat charge_now) / $(cat charge_full_design)))
 charge_f=$((100 * $(cat charge_now) / $(cat charge_full)))
+rate_raw=$(($(cat voltage_now) * $(cat current_now)))
+rate=$(bc <<< "scale=2; $rate_raw / 10^12")
 
 if [[ "$charge_f" -lt 20 ]]; then
     printf '\uf244'
@@ -29,11 +31,11 @@ else
     printf '[%s]' "$status"
 fi
 
-printf '  %s%%\n' "$charge_d"
+printf '  %s\u2009W, %s%%\n' "$rate" "$charge_d"
 
 if [[ "$status" == 'Discharging' ]]; then
     if [[ "$charge_d" -lt 20 ]]; then
-        printf '\nEEBF13'
+        printf '\n#EEBF13'
     elif [[ "$charge_d" -lt 10 ]]; then
         printf '\n#E41C28'
     fi
