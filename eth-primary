@@ -1,0 +1,12 @@
+#!/bin/bash
+[[ "$BLOCK_BUTTON" == 1 ]] && nm-connection-editor
+
+addr=$(
+    ip addr show dev "$BLOCK_INSTANCE" \
+        | grep 'inet ' \
+        | sed 's/\s\+inet \([0-9./]\+\).*/\1/'
+)
+
+[[ -n $addr ]] \
+    && printf '%s\n\n#3C913B' "$addr" \
+    || printf 'disconnected\n\n#E41C28'
