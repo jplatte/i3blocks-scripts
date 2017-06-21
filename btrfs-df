@@ -1,8 +1,9 @@
 #!/bin/bash
+# \xe2\x80\x89 is the utf8 representation of \u2009
 df=$(
     btrfs filesystem usage -H -T "$BLOCK_INSTANCE" \
         | grep '^\s\+Free' \
-        | sed 's/[^:]\+:\s\+\([0-9.]\+\w\+\).*/\1/'
+        | sed 's/[^:]\+:\s\+\([0-9]\+\)\(\.[0-9]\+\)\?\(\w\+\).*/\1\xe2\x80\x89\3/'
 )
 
 printf '%s' "$df"
