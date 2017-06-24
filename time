@@ -1,8 +1,5 @@
 #!/bin/bash
 [[ "$BLOCK_BUTTON" == 1 ]] && gnome-clocks
 
+export TZ="$BLOCK_INSTANCE"
 date '+%H:%M'
-
-# Add some space between i3blocks and the i3bar icon tray.
-# TODO: is there a better of way of doing this?
-printf '\u2008'
