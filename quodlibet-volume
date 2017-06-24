@@ -1,0 +1,3 @@
+#!/bin/bash
+vol=$(bc <<< "100 * $(quodlibet --status | cut -d' ' -f3)" | sed 's/\([0-9]\+\).*/\1/')
+printf '%s%%' $vol
