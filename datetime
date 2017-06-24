@@ -1,0 +1,5 @@
+#!/bin/bash
+[[ "$BLOCK_BUTTON" == 1 ]] && gnome-clocks
+
+export TZ="$BLOCK_INSTANCE"
+date '+%d.%m %H:%M'
