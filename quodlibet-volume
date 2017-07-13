@@ -1,4 +1,12 @@
 #!/bin/bash
+if [[ "$BLOCK_BUTTON" == 1 ]]; then
+    quodlibet --volume-up
+elif [[ "$BLOCK_BUTTON" == 3 ]]; then
+    quodlibet --volume-down
+elif [[ "$BLOCK_BUTTON" == 2 ]]; then
+    quodlibet --play-pause
+fi
+
 vol=$(bc <<< "100 * $(quodlibet --status | cut -d' ' -f3)" | sed 's/\([0-9]\+\).*/\1/')
 if [[ -n "$vol" ]]; then
     printf '%s%%' $vol
