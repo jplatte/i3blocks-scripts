@@ -32,7 +32,7 @@ printf '  '
 
 if [[ "$status" != 'Full' ]]; then
     rate_raw=$(($(cat voltage_now) * $(cat current_now)))
-    rate=$(bc <<< "scale=2; $rate_raw / 10^12")
+    rate=$(bc <<< "scale=1; $rate_raw / 10^12")
     printf '%s\u2009W, ' "$rate"
 fi
 
