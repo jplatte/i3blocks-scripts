@@ -1,5 +1,4 @@
 #!/bin/bash
-[[ "$BLOCK_BUTTON" == 1 ]] && gnome-calendar
 if [[ -n "$BLOCK_INSTANCE" ]]; then
     export TZ="$BLOCK_INSTANCE"
 fi
