@@ -1,6 +1,4 @@
 #!/bin/bash
-[[ "$BLOCK_BUTTON" == 1 ]] && nm-connection-editor
-
 [[ $(LC_ALL=C nmcli -f wifi -t g s) == 'disabled' ]] && exit 0
 
 network_name=$(

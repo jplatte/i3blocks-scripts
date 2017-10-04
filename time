@@ -1,5 +1,4 @@
 #!/bin/bash
-[[ "$BLOCK_BUTTON" == 1 ]] && gnome-clocks
 if [[ -n "$BLOCK_INSTANCE" ]]; then
     export TZ="$BLOCK_INSTANCE"
 fi
