@@ -1,0 +1,5 @@
+#!/bin/bash
+
+mem_avail_mb=$(LC_ALL=C free -m | grep -i mem | awk '{ print $7 }')
+mem_avail_gb=$(bc <<< "scale=1; $mem_avail_mb / 1000")
+printf '%s\u2009GiB' "$mem_avail_gb"
