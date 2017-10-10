@@ -3,4 +3,4 @@ if [[ -n "$BLOCK_INSTANCE" ]]; then
     export TZ="$BLOCK_INSTANCE"
 fi
 
-date '+%d.%m'
+date '+%d.%m.'
