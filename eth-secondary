@@ -1,6 +1,4 @@
 #!/bin/bash
-[[ "$BLOCK_BUTTON" == 1 ]] && nm-connection-editor
-
 addr=$(
     ip addr show dev "$BLOCK_INSTANCE" \
         | grep 'inet ' \
