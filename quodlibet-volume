@@ -1,13 +1,30 @@
 #!/bin/bash
-if [[ "$BLOCK_BUTTON" == 4 ]]; then
-    quodlibet --volume-up
-elif [[ "$BLOCK_BUTTON" == 5 ]]; then
-    quodlibet --volume-down
-elif [[ "$BLOCK_BUTTON" == 2 ]]; then
-    quodlibet --play-pause
-fi
 
-vol=$(bc <<< "100 * $(quodlibet --status | cut -d' ' -f3)" | sed 's/\([0-9]\+\).*/\1/')
-if [[ -n "$vol" ]]; then
-    printf '%s%%' $vol
+# Gets the volume from quodlibet's status output (0.0 - 1.0, linear)
+# and converts it to PulseAudio's display format (0 - 100, logarithmic)
+function volume_from_status {
+    awk '{ printf "%.f", $3 ^ (1/3) * 100 }'
+}
+
+# Converts volume level from PA's display format (0 - 100, logarithmic)
+# to what quodlibet's command line interface wants (0 - 100, linear)
+function volume_to_linear {
+    awk '{ print ($1 / 100) ^ 3 * 100 }'
+}
+
+status=$(quodlibet --status)
+if [[ -n "$status" ]]; then
+    vol=$(volume_from_status <<< "$status")
+
+    if [[ "$BLOCK_BUTTON" == 4 ]]; then
+        vol=$(($vol + 5))
+        quodlibet --volume=$(volume_to_linear <<< $vol)
+    elif [[ "$BLOCK_BUTTON" == 5 ]]; then
+        vol=$(($vol - 5))
+        quodlibet --volume=$(volume_to_linear <<< $vol)
+    elif [[ "$BLOCK_BUTTON" == 2 ]]; then
+        quodlibet --play-pause
+    fi
+
+    printf "%s%%\n" $vol
 fi
