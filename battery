@@ -37,7 +37,7 @@ if [[ "$status" != 'Full' ]]; then
 fi
 
 charge_d=$((100 * $(cat charge_now) / $(cat charge_full_design)))
-printf '%s%%\n' "$charge_d"
+printf '%s\u2009%%\n' "$charge_d"
 
 if [[ "$status" == 'Discharging' ]]; then
     if [[ "$charge_d" -lt 10 ]]; then

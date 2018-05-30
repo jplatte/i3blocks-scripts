@@ -12,5 +12,5 @@ if [[ "$?" == 0 ]]; then
         ~/.local/bin/scripts/quodlibet-control play-pause
     fi
 
-    printf "%s%%\n" "$vol"
+    printf "%s\u2009%%\n" "$vol"
 fi
