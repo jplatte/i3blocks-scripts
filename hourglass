@@ -1,0 +1,25 @@
+#!/bin/bash
+
+TIMES_FILE='/tmp/hourglass-times'
+
+if [[ -e "$TIMES_FILE" ]]; then
+    read -r begin end < "$TIMES_FILE"
+
+    IFS=':' read -r begin_h begin_m <<< "$begin"
+    IFS=':' read -r end_h end_m <<< "$end"
+
+    now_h=$(date +'%H')
+    now_m=$(date +'%M')
+
+    begin_m_total=$(( 10#$begin_h * 60 + 10#$begin_m ))
+    end_m_total=$(( 10#$end_h * 60 + 10#$end_m ))
+    now_m_total=$(( 10#$now_h * 60 + 10#$now_m ))
+
+    v=$(bc <<< "100 * ($now_m_total - $begin_m_total) / ($end_m_total - $begin_m_total)")
+
+    if (( $(bc <<< "$v < 100") )); then
+        printf '%s\u2009%%\n' "$v"
+    else
+        rm "$TIMES_FILE"
+    fi
+fi
