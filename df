@@ -3,7 +3,7 @@
 df=$(
     df -H --output=avail "$BLOCK_INSTANCE" \
         | tail -n1 \
-        | sed 's/\s\+\([0-9.]\+\)\(\w\)\s*/\1\xe2\x80\x89\2B/'
+        | sed 's/\s*\([0-9.]\+\)\(\w\)\s*/\1\xe2\x80\x89\2B/'
 )
 
 printf '%s' "$df"
