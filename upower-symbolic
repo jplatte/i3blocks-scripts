@@ -1,0 +1,21 @@
+#/bin/bash
+
+percentage_text=$(
+    upower -i "/org/freedesktop/UPower/devices/${BLOCK_INSTANCE}" \
+        | grep 'percentage:' \
+        | awk '{ print $2 }'
+)
+
+percentage=${percentage_text%\%}
+
+if [[ "$percentage" -lt 20 ]]; then
+    printf '\uf244'
+elif [[ "$percentage" -lt 40 ]]; then
+    printf '\uf243'
+elif [[ "$percentage" -lt 60 ]]; then
+    printf '\uf242'
+elif [[ "$percentage" -lt 80 ]]; then
+    printf '\uf241'
+else
+    printf '\uf240'
+fi

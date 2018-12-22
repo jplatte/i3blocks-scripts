@@ -1,4 +1,8 @@
 #/bin/bash
 
-percentage=$(upower -i "/org/freedesktop/UPower/devices/${BLOCK_INSTANCE}" | grep 'percentage:' | awk '{ print $2 }')
+percentage=$(
+    upower -i "/org/freedesktop/UPower/devices/${BLOCK_INSTANCE}" \
+        | grep 'percentage:' \
+        | awk '{ print $2 }'
+)
 printf '%s\u2009%%\n' ${percentage%\%}
